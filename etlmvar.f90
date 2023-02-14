@@ -93,6 +93,7 @@ contains
     do k = 1, nslot
        call matrix_gauss( nx, sigma_sloce, etlm_loc(k,1:nx,1:nx) )
        etlm_loc(k,1:nx,1:nx) = etlm_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( k * dt_cycle / nslot / sigma_tloce )**2 )
+       call matrix_eigen( 4, nx, etlm_loc(k,1:nx,1:nx) )
     end do
     ! output P_b and P_e
     if(hyb_betab==1.0) then
