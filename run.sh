@@ -76,7 +76,7 @@ nx=40, forcing=8.0, dt=0.01, ft_nature_pre=73.0, ft_nature=20.0,
 nslot=1, aslot=1, niter=20, dt_cycle=0.05, ft_cycle_pre=20.0, ft_cycle=10.0, ft_max=1.0,
 nobs=40, obsthin=1, obsid=1, obserr=1.0,
 nmem=3, hyb_betab=${HYB_BETAB}, hyb_betae=${HYB_BETAE}, amp_bcli=1.0, sigma_bcli=2.0,
-sigma_sloc=2.0, sigma_tloc=0.2, sigma_sloce=1.0, sigma_tloce=0.2, infl=0.0, rtpp=0.8
+sigma_sloc=2.0, sigma_tloc=-999.0, sigma_sloce=0.5, sigma_tloce=-999.0, infl=0.0, rtpp=0.8
 !nslot=1, aslot=1, niter=20, dt_cycle=0.05, ft_cycle_pre=20.0, ft_cycle=20.0, ft_max=1.0,
 !nobs=20, obsthin=2, obsid=1, obserr=1.0,
 !nmem=5, hyb_betab=${HYB_BETAB}, hyb_betae=${HYB_BETAE}, amp_bcli=1.0, sigma_bcli=1.0,

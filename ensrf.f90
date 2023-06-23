@@ -55,7 +55,9 @@ contains
              loc(k,i,l) = exp( -0.5_r_size * ( distance / sigma_sloc )**2 )
           end do
        end do
-       loc(k,1:nx,1:nobs) = loc(k,1:nx,1:nobs) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       if ( sigma_tloc > 0.0_r_size ) then
+          loc(k,1:nx,1:nobs) = loc(k,1:nx,1:nobs) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       end if
     end do
     ! loop for observations
     do k = 1, nslot

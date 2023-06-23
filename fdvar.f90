@@ -4,7 +4,7 @@ module fdvar
        & nslot, aslot, niter, dt_cycle, &
        & nobs, obsdata, &
        & nmem, hyb_betab, hyb_betae, &
-       & sigma_sloc, sigma_tloc, infl
+       & sigma_sloc, infl
   use lorenz1996, only : lorenz1996_run
   use obsope, only : obsope_run
   use matrix, only : matrix_eigen, matrix_gauss

@@ -32,6 +32,7 @@ contains
     real(r_size) :: inv_pe(nx)
     real(r_size) :: etlm_loc(nslot,nx,nx)
     real(r_size) :: sqrt_loc(nslot,nx,nx)
+    real(r_size) :: inv_norm
     real(r_size) :: vctl(nx*(1+nmem))
     real(r_size) :: costb, costo
     real(r_size) :: grad(nx*(1+nmem))
@@ -87,12 +88,18 @@ contains
     ! L^(1/2)
     do k = 1, nslot
        call matrix_gauss( nx, sigma_sloc, sqrt_loc(k,1:nx,1:nx) )
-       sqrt_loc(k,1:nx,1:nx) = sqrt_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       if ( sigma_tloc > 0.0_r_size ) then
+          sqrt_loc(k,1:nx,1:nx) = sqrt_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       end if
        call matrix_eigen( 4, nx, sqrt_loc(k,1:nx,1:nx) )
     end do
     do k = 1, nslot
        call matrix_gauss( nx, sigma_sloce, etlm_loc(k,1:nx,1:nx) )
-       etlm_loc(k,1:nx,1:nx) = etlm_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( k * dt_cycle / nslot / sigma_tloce )**2 )
+       inv_norm = 1.0_r_size / sum(etlm_loc(k,1,1:nx))
+       etlm_loc(k,1:nx,1:nx) = etlm_loc(k,1:nx,1:nx) * inv_norm
+       if ( sigma_tloce > 0.0_r_size ) then
+          etlm_loc(k,1:nx,1:nx) = etlm_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( k * dt_cycle / nslot / sigma_tloce )**2 ) * inv_norm
+       end if
        call matrix_eigen( 4, nx, etlm_loc(k,1:nx,1:nx) )
     end do
     ! output P_b and P_e

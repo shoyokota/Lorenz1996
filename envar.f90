@@ -75,7 +75,9 @@ contains
     ! L^(1/2)
     do k = 1, nslot
        call matrix_gauss( nx, sigma_sloc, sqrt_loc(k,1:nx,1:nx) )
-       sqrt_loc(k,1:nx,1:nx) = sqrt_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       if ( sigma_tloc > 0.0_r_size ) then
+          sqrt_loc(k,1:nx,1:nx) = sqrt_loc(k,1:nx,1:nx) * exp( -0.5_r_size * ( ( k - aslot ) * dt_cycle / nslot / sigma_tloc )**2 )
+       end if
        call matrix_eigen( 4, nx, sqrt_loc(k,1:nx,1:nx) )
     end do
     ! minimization
